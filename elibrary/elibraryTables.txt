@@ -1,0 +1,44 @@
+create table librarian
+(
+id int not null auto_increment primary key ,
+name varchar(30),
+email varchar(50) not null ,
+password varchar(100),
+mobile char(10) not null,
+constraint uc_email unique(email),
+constraint uc_mobile unique(mobile) 
+); 
+
+create table issueBooks
+(
+issue_id int not null auto_increment primary key ,
+callno varchar(30) ,
+student_id int,
+issue_date char(10),
+return_date char(10),
+constraint fk_callno foreign key(callno) references books(callno), 
+constraint fk_studentid foreign key(student_id) references student(id)
+); 
+
+create table student
+(
+id int not null auto_increment primary key ,
+password varchar(100),
+name varchar(30),
+gen char(20),
+mobile char(10) not null,
+security_ques varchar(200),
+answer varchar(100),
+constraint uc_mobile unique(mobile) 
+); 
+
+create table request
+(
+request_id int not null auto_increment primary key ,
+callno varchar(30) ,
+student_id int,
+request_date char(10),
+issue_date char(10),
+constraint fk_callno_request foreign key(callno) references books(callno), 
+constraint fk_studentid_request foreign key(student_id) references student(id)
+);
